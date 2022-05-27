@@ -1,0 +1,94 @@
+
+
+ <script src="/apps/core/wcm/clientlibs/js/cart.js" async></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<script>
+
+
+var productItems = []
+
+var readCookie = document.cookie;
+var cookieName = "products=";
+var cookieSplit = readCookie.split(';');
+
+for (var i = 0; i < cookieSplit.length; i++) {
+    var cookieItem = cookieSplit[i];
+
+    if (cookieItem.indexOf(cookieName) >= 0) {
+        cookieItem = cookieItem.replace(/\s/g, '');
+        var cookieValue = cookieItem.substring(cookieName.length, cookieItem.length);
+        var parsedCookieValue = JSON.parse(cookieValue);
+        for (var j = 0; j < parsedCookieValue.length; j++) {
+            var productName = parsedCookieValue[j].name;
+            var productPrice = parsedCookieValue[j].price;
+            var productImage = parsedCookieValue[j].image;
+            var productQuantity = parsedCookieValue[j].quantity;
+            var productID = parsedCookieValue[j].id;
+
+            var localProducts = {
+                "name": productName,
+                "price": productPrice,
+                "image": productImage,
+                "quantity": productQuantity,
+                "id": productID
+            };
+
+            productItems.push(localProducts)
+
+
+
+        }
+    }
+}
+
+
+
+
+var digitalData = window.digitalData || {};
+
+
+digitalData = {
+    page: {
+        pageInfo: {
+            pageTitle: "${currentPage.getTitle @ context='scriptString'}",
+            pageName: "${currentPage.getName @ context='scriptString'}",
+            pageUrl: "${currentPage.path @ context='uri'}",
+            siteRegion: "${data.siteRegion @ context='scriptString'}",
+            siteLanguage: "${data.siteLanguage @ context='scriptString'}"
+        }
+    },
+
+    cart: {
+        cartInfo: {}
+    }
+
+};
+digitalData['cart']['cartInfo'] = productItems
+
+
+</script>
+
+
+
+<link rel="stylesheet" href="/apps/core/wcm/clientlibs/css/product.css" />
+
+<script src="https://assets.adobedtm.com/6d07e8369d1a/1584655ff4fe/launch-6333cd4a4e4e-development.min.js" async></script>
+
+<a class="fa fa-caret-left" href="/content/wknd/us/en/abandonment-cart.html" style="color:black; font-size:23px;" > Back to Products</a>
+<section class="container content-section">
+            <h2 class="section-header">CART</h2>
+            <div class="cart-row">
+
+
+                <span class="cart-item cart-header cart-column">ITEM</span>
+                <span class="cart-price cart-header cart-column">PRICE</span>
+                <span class="cart-quantity cart-header cart-column">QUANTITY</span>
+            </div>
+            <div class="cart-items">
+            </div>
+            <div class="cart-total">
+                <strong class="cart-total-title">Total</strong>
+                <span class="cart-total-price">$0</span>
+            </div>
+            <button class="btn btn-primary btn-purchase" type="button">PURCHASE</button>
+</section>

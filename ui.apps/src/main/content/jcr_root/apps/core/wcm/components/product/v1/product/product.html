@@ -1,0 +1,24 @@
+<sly data-sly-use.products="com.adobe.aem.guides.wknd.core.models.ProductListModel">
+	 <link rel="stylesheet" href="/apps/core/wcm/clientlibs/css/product.css" />
+	 <script src="/apps/core/wcm/clientlibs/js/product.js" async></script>
+	<sly data-sly-list.products="${products.productsList}">
+		<section class="container-products content-section">
+			<div class="shop-items">
+				<div class="shop-item">
+					<span class="shop-item-title">${products.productName}</span>
+                    <span hidden class="shop-item-id">${products.productId}</span>
+					<img class="shop-item-image" src="${products.fileReference}" width="248" height="103"><img>
+					<div class="shop-item-description">${products.productDescription}</div>
+					<div class="shop-item-details">
+						<span class="shop-item-price">₹ ${products.productPrice}</span>
+						<button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
+					</div>
+				</div>
+			</div>
+		</section>
+	</sly>
+</sly>
+</sly>
+</sly>
+
+
